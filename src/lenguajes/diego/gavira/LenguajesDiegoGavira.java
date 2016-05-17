@@ -17,6 +17,8 @@ public class LenguajesDiegoGavira {
     public static void main(String[] args) {
         
         System.out.println("Mi primer programa de Lenguajes");
+        
+        System.out.println("Esta es otra linea");
         // TODO code application logic here
     }
     
