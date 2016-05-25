@@ -14,12 +14,17 @@ public class Animal {
     String nombre ;
     String especie;
     boolean carnivoro;
+    int num_jaula;
+    String sexo;
+    int edad;
+    
     
     public Animal(String valor) {
         
         nombre = valor;
     }
     
+  
     
     public Animal (String valor1, String valor2){
         
@@ -30,6 +35,19 @@ public class Animal {
     
      public Animal() {
         
-        nombre = "Leon";
+        nombre = "Tigre";
     }
+     
+     public Animal ( int variable1){ 
+         
+         edad = variable1;
+         
+     }
+     
+   /*   public Animal (String sex) {
+        
+        sexo = sex; 
+    } */
+    
+ 
 }
