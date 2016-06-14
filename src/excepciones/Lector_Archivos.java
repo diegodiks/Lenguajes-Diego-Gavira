@@ -5,6 +5,11 @@
  */
 package excepciones;
 
+import java.io.File;
+import java.io.FileInputStream;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DSGR
@@ -30,7 +35,7 @@ public class Lector_Archivos extends javax.swing.JFrame {
         tabLecctor = new javax.swing.JLabel();
         tabSeleccioner = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 204, 102));
@@ -43,20 +48,20 @@ public class Lector_Archivos extends javax.swing.JFrame {
         tabSeleccioner.setText("Seleccionar Archivo");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Buscar");
+        jButton1.setText("Cargar Archivo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jPanel1.setBackground(new java.awt.Color(0, 255, 255));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setText("Leer Archivo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,34 +71,90 @@ public class Lector_Archivos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(112, 112, 112)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tabLecctor, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(tabSeleccioner))))
+                        .addComponent(tabLecctor, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(jButton1)))
-                .addContainerGap(68, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(122, 122, 122)
+                        .addComponent(tabSeleccioner)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(tabLecctor, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(49, 49, 49)
                 .addComponent(tabSeleccioner)
-                .addGap(54, 54, 54)
-                .addComponent(jButton1)
-                .addContainerGap(104, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(71, 71, 71)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       
+      
+        JFileChooser selector = new JFileChooser ();
+        selector.showOpenDialog(this);                  // "this"  Indica que estamos sobre esta ventana
+        
+        File f=   selector.getSelectedFile();
+        
+       String nombre = f.getName(); 
+                      
+                int indice   = nombre.indexOf(".");
+                  
+               String extencion = nombre.substring(indice+1, nombre.length ());
+               //Validamos Extencion
+               
+               
+               
+       try {
+                       ValidarArchivo.validarExtencion(extencion);
+            FileInputStream fis= new FileInputStream(f);
+            int ch=0;
+            StringBuilder builder=new   StringBuilder();
+            
+            
+                while ((ch=fis.read())!=-1){        // Excepcion InputOutput (Exception IO)
+             
+                        builder.append((char)ch);
+                } 
+                
+                long  tama = builder.toString().getBytes().length;
+                            //lo que leiste devuelvemelo en string luego convierte en arreglo de bytes y dame la cantidad
+                String mensaje="Se leyo bien y se encontro esto: "+builder.toString();
+        JOptionPane.showMessageDialog(null,"extension: "+extencion,/*"nombre: "+nombre,*? /*"tamaño"+tama,*/"Informacion", 
+           JOptionPane.INFORMATION_MESSAGE);
+   
+       }
+             /*   catch (FileNotFoundException ex) {
+               
+            }
+        catch (IOException ex) {
+                         }*/
+        catch (Exception e){   
+            
+            JOptionPane.showMessageDialog(null,e.getMessage(),/*"extension: "+extencion,*//*"nombre: "+nombre,*? /*"tamaño"+tama,*/"Informacion", 
+           JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         JOptionPane.showMessageDialog(null, "Informacion", "Ponto habra algo", 
+           JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,7 +193,7 @@ public class Lector_Archivos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel tabLecctor;
     private javax.swing.JLabel tabSeleccioner;
     // End of variables declaration//GEN-END:variables
