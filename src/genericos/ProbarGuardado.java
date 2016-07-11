@@ -11,7 +11,7 @@ package genericos;
  */
 public class ProbarGuardado {
     
-    public static void main(String[] args) {
+    public static void main(String args[]) {
         
         Usuario u=new Usuario("Diego",20,"diego@gmail.com");
         PersistenciaUsuario p=new PersistenciaUsuario();
