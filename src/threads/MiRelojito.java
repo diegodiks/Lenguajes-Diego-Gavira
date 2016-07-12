@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class MiRelojito extends javax.swing.JFrame {
 
-    /**
+    /** 
      * Creates new form MiRelojito
      */
     public MiRelojito() {
